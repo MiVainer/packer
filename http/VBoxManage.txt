@@ -1,0 +1,665 @@
+Oracle VM VirtualBox Command Line Management Interface Version 7.0.4
+Copyright (C) 2005-2022 Oracle and/or its affiliates
+
+Usage - Oracle VM VirtualBox интерфейс командной строки:
+
+  VBoxManage [-V | --version] [--dump-build-type] [-q | --nologo] [--settingspw=пароль] [--settingspwfile=файл с паролем] [@файл ответов]
+      [[help] подкоманда]
+
+
+  VBoxManage list [--long] [--sorted] [bridgedifs | cloudnets | cloudprofiles | cloudproviders | cpu-profiles | dhcpservers | dvds | extpacks | floppies | groups |
+      hddbackends | hdds | hostcpuids | hostdrives | hostdvds | hostfloppies | hostinfo | hostonlyifs | hostonlynets | intnets | natnets | ostypes | runningvms |
+      screenshotformats | systemproperties | usbfilters | usbhost | vms | webcams]
+
+
+  VBoxManage showvminfo <uuid | имя-ВМ> [--details] [--machinereadable]
+
+  VBoxManage showvminfo <uuid | имя-ВМ> <--log=индекс>
+
+
+  VBoxManage registervm <имя-файла>
+
+
+  VBoxManage unregistervm <uuid | имя-ВМ> [--delete]
+
+
+  VBoxManage createvm <--name=имя-ВМ> [--basefolder=основная-папка] [--default] [--group=ID-группы,...] [--ostype=тип-ОС] [--register]
+      [--uuid=uuid]
+
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--name=имя] [--groups= группа[,группа...] ] [--description=описание] [--os-type=тип-ОС]
+      [--icon-file=имя-файла] [--memory=размер-в-МБ] [--page-fusion= on | off ] [--vram=размер-в-МБ] [--acpi= on | off ] [--ioapic= on | off ]
+      [--hardware-uuid=UUID] [--cpus=число-ЦПУ] [--cpu-hotplug= on | off ] [--plug-cpu=CPU-ID] [--unplug-cpu=CPU-ID] [--cpu-execution-cap=число] [--pae= on |
+      off ] [--long-mode= on | off ] [--ibpb-on-vm-exit= on | off ] [--ibpb-on-vm-entry= on | off ] [--spec-ctrl= on | off ] [--l1d-flush-on-sched= on | off ]
+      [--l1d-flush-on-vm-entry= on | off ] [--mds-clear-on-sched= on | off ] [--mds-clear-on-vm-entry= on | off ] [--cpu-profile= host | Intel 8086 | Intel 80286 |
+      Intel 80386 ] [--hpet= on | off ] [--hwvirtex= on | off ] [--triple-fault-reset= on | off ] [--apic= on | off ] [--x2apic= on | off ] [--paravirt-provider= none |
+      default | legacy | minimal | hyperv | kvm ] [--paravirt-debug= ключ=значение[,ключ=значение...] ] [--nested-paging= on | off ]
+      [--large-pages= on | off ] [--vtx-vpid= on | off ] [--vtx-ux= on | off ] [--nested-hw-virt= on | off ] [--virt-vmsave-vmload= on | off ] [--accelerate-3d= on | off ]
+      [--accelerate-2d-video= on | off ] [--chipset= ich9 | piix3 ] [--iommu= none | automatic | amd | intel ] [--tpm-type= none | 1.2 | 2.0 | host | swtpm ]
+      [--tpm-location= расположение ] [--bios-logo-fade-in= on | off ] [--bios-logo-fade-out= on | off ] [--bios-logo-display-time=миллисекунды]
+      [--bios-logo-image-path=путь] [--bios-boot-menu= disabled | menuonly | messageandmenu ] [--bios-apic= disabled | apic | x2apic ]
+      [--bios-system-time-offset=миллисекунды] [--bios-pxe-debug= on | off ] [--system-uuid-le= on | off ] [--bootX= none | floppy | dvd | disk | net ]
+      [--rtc-use-utc= on | off ] [--graphicscontroller= none | vboxvga | vmsvga | vboxsvga ] [--snapshot-folder= default | путь ] [--firmware= bios | efi | efi32 |
+      efi64 ] [--guest-memory-balloon=размер-в-МБ] [--default-frontend= default | имя ] [--vm-process-priority= default | flat | low | normal | high ]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--nicN= none | null | nat | bridged | intnet | hostonly | hostonlynet | generic | natnetwork ] [--nic-typeN= Am79C970A |
+      Am79C973 | 82540EM | 82543GC | 82545EM | virtio ] [--cable-connectedN= on | off ] [--nic-traceN= on | off ] [--nic-trace-fileN=имя-файла]
+      [--nic-propertyN=имя= [значение] ] [--nic-speedN=кбит-в-сек] [--nic-boot-prioN=приоритет] [--nic-promiscN= deny | allow-vms | allow-all ]
+      [--nic-bandwidth-groupN= none | name ] [--bridge-adapterN= none | device-name ] [--host-only-adapterN= none | device-name ] [--host-only-netN=имя-сети]
+      [--intnetN=имя-сети] [--nat-networkN=имя-сети] [--nic-generic-drvN=имя-драйвера] [--mac-addressN= auto | MAC-адрес ]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--nat-netN= сеть | default ] [--nat-pfN= [имя-правила],tcp |
+      udp,[IP-хоста],порт-хоста,[IP-гостя],порт-гостя ] [--nat-pfN=delete=имя-правила] [--nat-tftp-prefixN=префикс]
+      [--nat-tftp-fileN=имя-файла] [--nat-tftp-serverN=IP-адрес] [--nat-bind-ipN=IP-адрес] [--nat-dns-pass-domainN= on | off ] [--nat-dns-proxyN= on |
+      off ] [--nat-dns-host-resolverN= on | off ] [--nat-localhostreachableN= on | off ]
+      [--nat-settingsN=[mtu],[отправка-сокет],[прием-сокет],[отправка-tcp],[прием-tcp]] [--nat-alias-modeN= default |
+      [log],[proxyonly],[sameports] ]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--mouse= ps2 | usb | usbtablet | usbmultitouch ] [--keyboard= ps2 | usb ] [--uartN= off | IO-базаIRQ ] [--uart-modeN=
+      disconnected | serverканал | clientканал | tcpserverпорт | tcpclientимя-хоста:порт | fileимя-файла | имя-устройства ]
+      [--uart-typeN= 16450 | 16550A | 16750 ] [--lpt-modeN=имя-устройства] [--lptN= off | IO-базаIRQ ] [--audio= none | default | null | dsound | was |
+      oss | alsa | pulse | coreaudio ] [--audio-controller= ac97 | hda | sb16 ] [--audio-codec= stac9700 | ad1980 | stac9221 | sb16 ] [--audio-in= on | off ] [--audio-out=
+      on | off ] [--clipboard-mode= disabled | hosttoguest | guesttohost | bidirectional ] [--drag-and-drop= disabled | hosttoguest | guesttohost | bidirectional ]
+      [--monitor-count=количество] [--usb-ehci= on | off ] [--usb-ohci= on | off ] [--usb-xhci= on | off ] [--usb-rename=старое-имяновое-имя]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--recording= on | off ] [--recording-screens= all | ID-экрана[ID-экрана...] ] [--recording-file=имя-файла]
+      [--recording-max-size=МБ] [--recording-max-time=миллисекунды] [--recording-opts= ключ=значение[,ключ=значение...] ]
+      [--recording-video-fps=кадров-в-сек] [--recording-video-rate=rate] [--recording-video-res=ширинавысота]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--vrde= on | off ] [--vrde-property=имя-свойства= [значение-свойства] ] [--vrde-extpack= default |
+      имя ] [--vrde-port=порт] [--vrde-address=IP-хоста] [--vrde-auth-type= null | external | guest ] [--vrde-auth-library= default | имя ]
+      [--vrde-multi-con= on | off ] [--vrde-reuse-con= on | off ] [--vrde-video-channel= on | off ] [--vrde-video-channel-quality=процент]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--teleporter= on | off ] [--teleporter-port=порт] [--teleporter-address= адрес | empty ]
+      [--teleporter-password=пароль] [--teleporter-password-file= имя-файла | stdin ] [--cpuid-portability-level=уровень] [--cpuid-set=лист
+      [:подлист] eax ebx ecx edx] [--cpuid-remove=лист [:подлист] ] [--cpuid-remove-all]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--tracing-enabled= on | off ] [--tracing-config=строка] [--tracing-allow-vm-access= on | off ]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--usb-card-reader= on | off ]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--autostart-enabled= on | off ] [--autostart-delay=секунды]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--pci-attach=PCI-адрес-хоста [@гостевой-PCI-адрес-шины] ] [--pci-detach=PCI-адрес-хоста]
+
+  VBoxManage modifyvm <uuid | имя-ВМ> [--testing-enabled= on | off ] [--testing-mmio= on | off ] [--testing-cfg-dwordidx=значение]
+
+
+  VBoxManage snapshot <uuid|имя-ВМ>
+
+  VBoxManage snapshot <uuid|имя-ВМ> take <имя-снимка> [--description=описание] [--live] [--uniquename Number,Timestamp,Space,Force]
+
+  VBoxManage snapshot <uuid|имя-ВМ> delete <имя-снимка>
+
+  VBoxManage snapshot <uuid|имя-ВМ> restore <имя-снимка>
+
+  VBoxManage snapshot <uuid|имя-ВМ> restorecurrent
+
+  VBoxManage snapshot <uuid|имя-ВМ> edit <имя-снимка | --current> [--description=описание] [--name=новое-имя]
+
+  VBoxManage snapshot <uuid|имя-ВМ> list [--details | --machinereadable]
+
+  VBoxManage snapshot <uuid|имя-ВМ> showvminfo <имя-снимка>
+
+
+  VBoxManage clonevm <имя-ВМ|uuid> [--basefolder=основная-папка] [--groups=группа,...] [--mode=machine | --mode=machinechildren | --mode=all]
+      [--name=имя] [--options=опция,...] [--register] [--snapshot=имя-снимка] [--uuid=uuid]
+
+
+  VBoxManage movevm <uuid | имя-ВМ> [--type=basic] [--folder=имя-папки]
+
+
+  VBoxManage encryptvm <uuid | имя-ВМ> setencryption --old-passwordфайл --cipherидентификатор-шифра --new-passwordфайл
+      --new-password-idидентификатор-пароля --force
+
+  VBoxManage encryptvm <uuid | имя-ВМ> checkpassword <файл>
+
+  VBoxManage encryptvm <uuid | имя-ВМ> addpassword --passwordфайл --password-idидентификатор-пароля
+
+  VBoxManage encryptvm <uuid | имя-ВМ> removepassword <идентификатор-пароля>
+
+
+  VBoxManage startvm <uuid | имя-ВМ> [--putenv=имя[=значение]] [--type= [gui | headless | sdl | separate] ]
+
+
+  VBoxManage controlvm <uuid | имя-ВМ> pause
+
+  VBoxManage controlvm <uuid | имя-ВМ> resume
+
+  VBoxManage controlvm <uuid | имя-ВМ> reset
+
+  VBoxManage controlvm <uuid | имя-ВМ> poweroff
+
+  VBoxManage controlvm <uuid | имя-ВМ> savestate
+
+  VBoxManage controlvm <uuid | имя-ВМ> acpipowerbutton
+
+  VBoxManage controlvm <uuid | имя-ВМ> acpisleepbutton
+
+  VBoxManage controlvm <uuid | имя-ВМ> reboot
+
+  VBoxManage controlvm <uuid | имя-ВМ> shutdown
+
+  VBoxManage controlvm <uuid | имя-ВМ> keyboardputscancode <hex> [hex...]
+
+  VBoxManage controlvm <uuid | имя-ВМ> keyboardputstring <строка> [строка...]
+
+  VBoxManage controlvm <uuid | имя-ВМ> keyboardputfile <имя-файла>
+
+  VBoxManage controlvm <uuid | имя-ВМ> setlinkstateN <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> nicN <null | nat | bridged | intnet | hostonly | generic | natnetwork> [имя-устройства]
+
+  VBoxManage controlvm <uuid | имя-ВМ> nictraceN <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> nictracefileN <имя-файла>
+
+  VBoxManage controlvm <uuid | имя-ВМ> nicpropertyN <имя-свойства=значение-свойства>
+
+  VBoxManage controlvm <uuid | имя-ВМ> nicpromiscN <deny | allow-vms | allow-all>
+
+  VBoxManage controlvm <uuid | имя-ВМ> natpfN <[имя-правила] ,tcp | udp, IP-хоста, порт-хоста, IP-гостя, порт-гостя>
+
+  VBoxManage controlvm <uuid | имя-ВМ> natpfNdelete <имя-правила>
+
+  VBoxManage controlvm <uuid | имя-ВМ> guestmemoryballoon <размер-balloon-памяти>
+
+  VBoxManage controlvm <uuid | имя-ВМ> usbattach <uuid | адрес> [--capturefile=имя-файла]
+
+  VBoxManage controlvm <uuid | имя-ВМ> usbdetach <uuid | адрес>
+
+  VBoxManage controlvm <uuid | имя-ВМ> audioin <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> audioout <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> clipboard mode <disabled | hosttoguest | guesttohost | bidirectional>
+
+  VBoxManage controlvm <uuid | имя-ВМ> draganddrop <disabled | hosttoguest | guesttohost | bidirectional>
+
+  VBoxManage controlvm <uuid | имя-ВМ> vrde <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> vrdeport <port>
+
+  VBoxManage controlvm <uuid | имя-ВМ> vrdeproperty <имя-свойства=значение-свойства>
+
+  VBoxManage controlvm <uuid | имя-ВМ> vrdevideochannelquality <процент>
+
+  VBoxManage controlvm <uuid | имя-ВМ> setvideomodehint <разрешение-x> <разрешение-y> <бит/пиксел> [[дисплей]  [enabled:yes | no |
+      начальная-точка-x начальная-точка-y] ]
+
+  VBoxManage controlvm <uuid | имя-ВМ> setscreenlayout <экран> <on |
+      primaryначальная-точка-x начальная-точка-y разрешение-x разрешение-y бит/пиксел | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> screenshotpng <имя-файла> [display]
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording <on | off>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording screens <all | none | экран,[экран...]>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording filename <filename>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording videores <ширинаxвысота>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording videorate <битрейт>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording videofps <кадров/сек>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording maxtime <сек>
+
+  VBoxManage controlvm <uuid | имя-ВМ> recording maxfilesize <МБ>
+
+  VBoxManage controlvm <uuid | имя-ВМ> setcredentials <имя-пользователя> --passwordfile= <имя-файла | пароль>  <имя-домена>
+      --allowlocallogon= <yes | no>
+
+  VBoxManage controlvm <uuid | имя-ВМ> teleport <--host=имя-хоста> <--port=имя-порта> [--maxdowntime=мсек] [--passwordfile=имя-файла |
+      --password=пароль]
+
+  VBoxManage controlvm <uuid | имя-ВМ> plugcpu <ID>
+
+  VBoxManage controlvm <uuid | имя-ВМ> unplugcpu <ID>
+
+  VBoxManage controlvm <uuid | имя-ВМ> cpuexecutioncap <число>
+
+  VBoxManage controlvm <uuid | имя-ВМ> vm-process-priority <default | flat | low | normal | high>
+
+  VBoxManage controlvm <uuid | имя-ВМ> webcam attach [путь [настройки] ]
+
+  VBoxManage controlvm <uuid | имя-ВМ> webcam detach [путь]
+
+  VBoxManage controlvm <uuid | имя-ВМ> webcam list
+
+  VBoxManage controlvm <uuid | имя-ВМ> addencpassword <ID> <файл-с-паролем | -> [--removeonsuspend= yes | no ]
+
+  VBoxManage controlvm <uuid | имя-ВМ> removeencpassword <ID>
+
+  VBoxManage controlvm <uuid | имя-ВМ> removeallencpasswords
+
+  VBoxManage controlvm <uuid | имя-ВМ> changeuartmodeN disconnected | serverимя-канала | clientимя-канала | tcpserverпорт |
+      tcpclientимя-хоста:порт | fileимя-файла | имя-устройства
+
+  VBoxManage controlvm <uuid | имя-ВМ> autostart-enabledN on | off
+
+  VBoxManage controlvm <uuid | имя-ВМ> autostart-delayсекунд
+
+
+  VBoxManage import <имя-ovf | имя-ova> [--dry-run] [--options= keepallmacs | keepnatmacs | importtovdi ] [--vsys=n] [--ostype=тип-ос] [--vmname=имя]
+      [--settingsfile=файл] [--basefolder=папка] [--group=группа] [--memory=МБ] [--cpus=n] [--description=текст] [--eula= show | accept ] [--unit=n]
+      [--ignore] [--scsitype= BusLogic | LsiLogic ] [--disk=путь]
+
+  VBoxManage import OCI:// --cloud [--ostype=тип-ос] [--vmname=имя] [--basefolder=папка] [--memory=МБ] [--cpus=n] [--description=текст]
+      <--cloudprofile=профиль> <--cloudinstanceid=id> [--cloudbucket=корзина]
+
+
+  VBoxManage export <машины> <--output=имя> [--legacy09 | --ovf09 | --ovf10 | --ovf20] [--manifest] [--options= manifest | iso | nomacs | nomacsbutnat... ]
+      [--vsys=номер-виртуальной-системы] [--description=описание] [--eula=текст-лицензии] [--eulafile=имя-файла]
+      [--product=имя-продукта] [--producturl=URL-продукта] [--vendor=имя-поставщика] [--vendorurl=URL-поставщика]
+      [--version=информация-о-версии] [--vmname=имя-ВМ]
+
+  VBoxManage export <машина> <--output=провайдер-облачной-службы> [--opc10] [--vmname=имя-ВМ]
+      [--cloud=номер-виртуальной-системы] [--cloudprofile=имя-облачного-профиля]
+      [--cloudshape=имя-облачной-формы] [--clouddomain=облачный-домен] [--clouddisksize=размер-диска-в-ГБ]
+      [--cloudbucket=имя-корзины] [--cloudocivcn=OCI-VCN-ID] [--cloudocisubnet=ID-подсети-OCI] [--cloudkeepobject= true | false ] [--cloudlaunchinstance=
+      true | false ] [--cloudlaunchmode= EMULATED | PARAVIRTUALIZED ] [--cloudpublicip= true | false ]
+
+
+  VBoxManage mediumio <--disk=uuid|имя-файла | --dvd=uuid|имя-файла | --floppy=uuid|имя-файла> [--password-file=-|имя-файла] formatfat
+      [--quick]
+
+  VBoxManage mediumio <--disk=uuid|имя-файла | --dvd=uuid|имя-файла | --floppy=uuid|имя-файла> [--password-file=-|имя-файла] cat [--hex]
+      [--offset=смещение-байт] [--size=байты] [--output=-|имя-файла]
+
+  VBoxManage mediumio <--disk=uuid|имя-файла | --dvd=uuid|имя-файла | --floppy=uuid|имя-файла> [--password-file=-|имя-файла] stream
+      [--format=формат-образа] [--variant=вариант-образа] [--output=-|имя-файла]
+
+
+  VBoxManage sharedfolder add <uuid | имя-ВМ> <--name=имя> <--hostpath=путь-в-хост-системе> [--readonly] [--transient] [--automount]
+      [--auto-mount-point=путь]
+
+  VBoxManage sharedfolder remove <uuid | имя-ВМ> <--name=имя> [--transient]
+
+
+  VBoxManage dhcpserver add <--network=имя-сети | --interface=имя-интерфейса> <--server-ip=адрес> <--netmask=маска> <--lower-ip=адрес>
+      <--upper-ip=адрес> <--enable | --disable>
+       [--global | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp строка-hex... |
+           --force-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... | --min-lease-time=секунды | --default-lease-time=секунды
+           | --max-lease-time=секунды...]
+       [--group=имя | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp строка-hex... |
+           --force-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... | --incl-mac=адрес... | --excl-mac=адрес... |
+           --incl-mac-wild=шаблон... | --excl-mac-wild=шаблон... | --incl-vendor=строка... | --excl-vendor=строка... |
+           --incl-vendor-wild=шаблон... | --excl-vendor-wild=шаблон... | --incl-user=строка... | --excl-user=строка... |
+           --incl-user-wild=шаблон... | --excl-user-wild=шаблон... | --min-lease-time=секунды | --default-lease-time=секунды |
+           --max-lease-time=секунды...]
+       [--vm=имя|uuid | --nic=1-N | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp строка-hex... |
+           --force-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... | --min-lease-time=секунды | --default-lease-time=секунды
+           | --max-lease-time=секунды | --fixed-address=адрес...]
+       [--mac-address=адрес | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp строка-hex... |
+           --force-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... | --min-lease-time=секунды | --default-lease-time=секунды
+           | --max-lease-time=секунды | --fixed-address=адрес...]
+
+  VBoxManage dhcpserver modify <--network=имя-сети | --interface=имя-интерфейса> [--server-ip=адрес] [--lower-ip=адрес]
+      [--upper-ip=адрес] [--netmask=маска] [--enable | --disable]
+       [--global | --del-opt=номер-опции-dhcp... | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp
+           значение... | --force-opt=номер-опции-dhcp... | --unforce-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... |
+           --unsupress-opt=номер-опции-dhcp... | --min-lease-time=секунды | --default-lease-time=секунды | --max-lease-time=секунды |
+           --remove-config...]
+       [--group=имя | --set-opt=номер-опции-dhcp значение... | --set-opt-hex=номер-опции-dhcp строка-hex... |
+           --force-opt=номер-опции-dhcp... | --unforce-opt=номер-опции-dhcp... | --supress-opt=номер-опции-dhcp... |
+           --unsupress-opt=номер-опции-dhcp... | --del-mac=адрес... | --incl-mac=адрес... | --excl-mac=адрес... | --del-mac-wild=шаблон... |
+           --incl-mac-wild=шаблон... | --excl-mac-wild=шаблон... | --del-vendor=строка... | --incl-vendor=строка... | --excl-vendor=строка...
+           | --del-vendor-wild=шаблон... | --incl-vendor-wild=шаблон... | --excl-vendor-wild=шаблон... | --del-user=строка... |
+           --incl-user=строка... | --excl-user=строка... | --del-user-wild=шаблон... | --incl-user-wild=шаблон... |
+           --excl-user-wild=шаблон... | --zap-conditions | --min-lease-time=секунды | --default-lease-time=секунды | --max-lease-time=секунды |
+           --remove-config...]
+       [--vm=имя|uuid | --nic=1-N | --del-opt=номер-опции-dhcp... | --set-opt=номер-опции-dhcp значение... |
+           --set-opt-hex=номер-опции-dhcp строка-hex... | --force-opt=номер-опции-dhcp... | --unforce-opt=номер-опции-dhcp... |
+           --supress-opt=номер-опции-dhcp... | --unsupress-opt=номер-опции-dhcp... | --min-lease-time=секунды |
+           --default-lease-time=секунды | --max-lease-time=секунды | --fixed-address=адрес | --remove-config...]
+       [--mac-address=адрес | --del-opt=номер-опции-dhcp... | --set-opt=номер-опции-dhcp значение... |
+           --set-opt-hex=номер-опции-dhcp строка-hex... | --force-opt=номер-опции-dhcp... | --unforce-opt=номер-опции-dhcp... |
+           --supress-opt=номер-опции-dhcp... | --unsupress-opt=номер-опции-dhcp... | --min-lease-time=секунды |
+           --default-lease-time=секунды | --max-lease-time=секунды | --fixed-address=адрес | --remove-config...]
+
+  VBoxManage dhcpserver remove <--network=имя-сети | --interface=имя-интерфейса>
+
+  VBoxManage dhcpserver start <--network=имя-сети | --interface=имя-интерфейса>
+
+  VBoxManage dhcpserver restart <--network=имя-сети | --interface=имя-интерфейса>
+
+  VBoxManage dhcpserver stop <--network=имя-сети | --interface=имя-интерфейса>
+
+  VBoxManage dhcpserver findlease <--network=имя-сети | --interface=имя-интерфейса> <--mac-address=mac>
+
+
+  VBoxManage debugvm <uuid|имя-ВМ> dumpvmcore [--filename=name]
+
+  VBoxManage debugvm <uuid|имя-ВМ> info <элемент> [аргументы...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> injectnmi
+
+  VBoxManage debugvm <uuid|имя-ВМ> log [--release | --debug] [настройки-группы...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> logdest [--release | --debug] [назначения...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> logflags [--release | --debug] [флаги...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> osdetect
+
+  VBoxManage debugvm <uuid|имя-ВМ> osinfo
+
+  VBoxManage debugvm <uuid|имя-ВМ> osdmesg [--lines=строки]
+
+  VBoxManage debugvm <uuid|имя-ВМ> getregisters [--cpu=id] [набор-регистров.имя-регистра...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> setregisters [--cpu=id] [набор-регистров.имя-регистра=значение...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> show [--human-readable | --sh-export | --sh-eval | --cmd-set] [элемент-настроек...]
+
+  VBoxManage debugvm <uuid|имя-ВМ> stack [--cpu=id]
+
+  VBoxManage debugvm <uuid|имя-ВМ> statistics [--reset] [--descriptions] [--pattern=шаблон]
+
+  VBoxManage debugvm <uuid|имя-ВМ> guestsample [--filename=имя-файла] [--sample-interval-us=интервал] [--sample-time-us=время]
+
+
+  VBoxManage extpack install [--replace] [--accept-license=sha256] <имя-tar-архива>
+
+  VBoxManage extpack uninstall [--force] <имя>
+
+  VBoxManage extpack cleanup
+
+
+  VBoxManage unattended detect <--iso=iso-установщика> [--machine-readable]
+
+  VBoxManage unattended install <uuid|имя-ВМ> <--iso=iso-инсталляции> [--user=логин] [--password=пароль] [--password-file=файл]
+      [--full-user-name=имя] [--key=ключ-продукта] [--install-additions] [--no-install-additions] [--additions-iso=iso-дополнений] [--install-txs]
+      [--no-install-txs] [--validation-kit-iso=iso-тестирования] [--locale=ll_CC] [--country=CC] [--time-zone=tz] [--hostname=имя-хоста]
+      [--package-selection-adjustment=ключ] [--dry-run] [--auxiliary-base-path=путь] [--image-index=номер] [--script-template=файл]
+      [--post-install-template=файл] [--post-install-command=команда] [--extra-install-kernel-parameters=параметры] [--language=язык]
+      [--start-vm=тип-сессии]
+
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       list instances [--state=строка] [--compartment-id=строка]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       list images <--compartment-id=строка> [--state=строка]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       instance create <--domain-name=имя> <--image-id=id | --boot-volume-id=id> <--display-name=имя> <--shape=тип> <--subnet=id> [--boot-disk-size=размер
+           в ГБ] [--publicip=true/false] [--privateip=IP адрес] [--public-ssh-key=ключевая строка...] [--launch-mode=NATIVE/EMULATED/PARAVIRTUALIZED]
+           [--cloud-init-script-path=путь к скрипту]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       instance info <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       instance terminate <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       instance start <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       instance pause <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       image create <--display-name=имя> [--bucket-name=имя] [--object-name=имя] [--instance-id=уникальный id]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       image info <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       image delete <--id=уникальный id>
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       image import <--id=уникальный id> [--bucket-name=имя] [--object-name=имя]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       image export <--id=уникальный id> <--display-name=имя> [--bucket-name=имя] [--object-name=имя]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       network setup <--local-gateway-iso=путь> [--gateway-os-name=строка] [--gateway-os-version=строка] [--gateway-shape=строка]
+           [--tunnel-network-name=строка] [--tunnel-network-range=строка] [--guest-additions-iso=путь] [--proxy=строка]
+           [--compartment-id=строка]
+
+  VBoxManage cloud <--provider=имя> <--profile=имя>
+       network create <--name=строка> <--network-id=строка> [--enable | --disable]
+
+  VBoxManage cloud network update <--name=строка> [--network-id=строка] [--enable | --disable]
+
+  VBoxManage cloud network delete <--name=строка>
+
+  VBoxManage cloud network info <--name=строка>
+
+
+  VBoxManage cloudprofile <--provider=имя> <--profile=имя> add [--clouduser=уникальный id] [--fingerprint=строка MD5] [--keyfile=путь]
+      [--passphrase=строка] [--tenancy=уникальный id] [--compartment=уникальный id] [--region=строка]
+
+  VBoxManage cloudprofile <--provider=имя> <--profile=имя> update [--clouduser=уникальный id] [--fingerprint=строка MD5] [--keyfile=путь]
+      [--passphrase=строка] [--tenancy=уникальный id] [--compartment=уникальный id] [--region=строка]
+
+  VBoxManage cloudprofile <--provider=имя> <--profile=имя> delete
+
+  VBoxManage cloudprofile <--provider=имя> <--profile=имя> show
+
+
+  VBoxManage signova <ova> <--certificate=файл> <--private-key=файл> [--private-key-password-file=файл-с-паролем |
+      --private-key-password=файл-с-паролем] [--digest-type=тип] [--pkcs7 | --no-pkcs7] [--intermediate-cert=файл] [--force] [--verbose] [--quiet]
+      [--dry-run]
+
+
+  VBoxManage modifynvram <uuid|имя-ВМ> inituefivarstore
+
+  VBoxManage modifynvram <uuid|имя-ВМ> enrollmssignatures
+
+  VBoxManage modifynvram <uuid|имя-ВМ> enrollorclpk
+
+  VBoxManage modifynvram <uuid|имя-ВМ> enrollpk [--platform-key=имя-файла] [--owner-uuid=uuid]
+
+  VBoxManage modifynvram <uuid|имя-ВМ> listvars
+
+  VBoxManage modifynvram <uuid|имя-ВМ> queryvar [--name=имя] [--filename=имя-файла]
+
+  VBoxManage modifynvram <uuid|имя-ВМ> deletevar [--name=имя] [--owner-uuid=uuid]
+
+  VBoxManage modifynvram <uuid|имя-ВМ> changevar [--name=имя] [--filename=имя-файла]
+
+
+  VBoxManage hostonlynet add <--name=имя-сети> [--id=id-сети] <--netmask=маска> <--lower-ip=адрес> <--upper-ip=адрес> [--enable | --disable]
+
+  VBoxManage hostonlynet modify <--name=имя-сети | --id=id-сети> [--lower-ip=адрес] [--upper-ip=адрес] [--netmask=маска] [--enable | --disable]
+
+  VBoxManage hostonlynet remove <--name=имя-сети | --id=id-сети>
+
+
+  VBoxManage updatecheck perform [--machine-readable]
+
+  VBoxManage updatecheck list [--machine-readable]
+
+  VBoxManage updatecheck modify [--disable | --enable] [--channel=stable | withbetas | all] [--frequency=дни]
+
+
+  VBoxManage discardstate <uuid | имя-ВМ>
+
+
+  VBoxManage adoptstate <uuid | имя-ВМ> <имя-файла-состояния>
+
+
+  VBoxManage closemedium [disk | dvd | floppy] <uuid | имя-файла> [--delete]
+
+
+  VBoxManage storageattach <uuid | имя-ВМ> <--storagectl=имя> [--bandwidthgroup= name | none ] [--comment=текст] [--device=номер] [--discard= on | off ]
+      [--encodedlun=lun] [--forceunmount] [--hotpluggable= on | off ] [--initiator=инициатор] [--intnet] [--lun=lun] [--medium= none | emptydrive | additions |
+      uuid | имя-файла | host:диск | iscsi ] [--mtype= normal | writethrough | immutable | shareable | readonly | multiattach ] [--nonrotational= on | off ]
+      [--passthrough= on | off ] [--passwordfile=файл] [--password=пароль] [--port=номер] [--server= имя | ip ] [--setparentuuid=uuid] [--setuuid=uuid]
+      [--target=цель] [--tempeject= on | off ] [--tport=порт] [--type= dvddrive | fdd | hdd ] [--username=имя-пользователя]
+
+
+  VBoxManage storagectl <uuid | имя-ВМ> <--name=имя-контроллера> [--add= floppy | ide | pcie | sas | sata | scsi | usb ] [--controller= BusLogic |
+      I82078 | ICH6 | IntelAhci | LSILogic | LSILogicSAS | NVMe | PIIX3 | PIIX4 | USB | VirtIO ] [--bootable= on | off ] [--hostiocache= on | off ]
+      [--portcount=количество] [--remove] [--rename=новое-имя-контроллера]
+
+
+  VBoxManage bandwidthctl <uuid | имя-ВМ> add <имя-группы-полосы-пропускания>
+      <--limit=лимит-полосы-пропускания[k|m|g|K|M|G]> <--type=disk|network>
+
+  VBoxManage bandwidthctl <uuid | имя-ВМ> list [--machinereadable]
+
+  VBoxManage bandwidthctl <uuid | имя-ВМ> remove <имя-группы-полосы-пропускания>
+
+  VBoxManage bandwidthctl <uuid | имя-ВМ> set <имя-группы-полосы-пропускания>
+      <--limit=лимит-полосы-пропускания[k|m|g|K|M|G]>
+
+
+  VBoxManage showmediuminfo [disk | dvd | floppy] <uuid | имя-файла>
+
+
+  VBoxManage createmedium [disk | dvd | floppy] <--filename=имя-файла> [--size=мегабайты | --sizebyte=байты] [--diffparent= UUID | имя-файла
+      ] [--format= VDI | VMDK | VHD ] [--variant Standard,Fixed,Split2G,Stream,ESX,Formatted,RawDisk] --propertyимя=значение...
+      --property-fileимя=/путь/к/файлу/со/значением...
+
+
+  VBoxManage modifymedium [disk | dvd | floppy] <uuid | имя-файла> [--autoreset=on | off] [--compact] [--description=описание] [--move=путь]
+      [--property=имя=[значение]] [--resize=мегабайты| --resizebyte=байты] [--setlocation=путь]
+      [--type=normal | writethrough | immutable | shareable | readonly | multiattach]
+
+
+  VBoxManage clonemedium <uuid | носитель-источник> <uuid | носитель-назначения> [disk | dvd | floppy] [--existing] [--format= VDI | VMDK
+      | VHD | RAW | другие ] [--variant=Standard,Fixed,Split2G,Stream,ESX]
+
+
+  VBoxManage mediumproperty [disk | dvd | floppy] set <uuid | имя-файла> <имя-свойства> <значение-свойства>
+
+  VBoxManage mediumproperty [disk | dvd | floppy] get <uuid | имя-файла> <имя-свойства>
+
+  VBoxManage mediumproperty [disk | dvd | floppy] delete <uuid | имя-файла> <имя-свойства>
+
+
+  VBoxManage encryptmedium <uuid | имя-файла> [--cipher=ID-шифра] [--newpassword=пароль] [--newpasswordid=ID-пароля] [--oldpassword=пароль]
+
+
+  VBoxManage checkmediumpwd <uuid | имя-файла> <файл-с-паролем>
+
+
+  VBoxManage convertfromraw <входной-файл> <выходной-файл> [--format= VDI | VMDK | VHD ] [--uuid=uuid] [--variant=Standard,Fixed,Split2G,Stream,ESX]
+
+  VBoxManage convertfromraw stdin <выходной-файл> [--format= VDI | VMDK | VHD ] [--uuid=uuid] [--variant=Standard,Fixed,Split2G,Stream,ESX]
+
+
+  VBoxManage setextradata <global | uuid | имя-ВМ> <ключ> [значение]
+
+
+  VBoxManage getextradata <global | uuid | имя-ВМ> ключ | enumerate
+
+
+  VBoxManage setproperty <имя-свойства> <значение-свойства>
+
+
+  VBoxManage usbfilter add <индекс,0-N> <--target= <uuid | имя-ВМ | global> > <--name=строка> <--action=ignore | hold> [--active=yes | no]
+      [--vendorid=XXXX] [--productid=XXXX] [--revision=IIFF] [--manufacturer=строка] [--product=строка] [--remote=yes | no] [--serialnumber=строка]
+      [--maskedinterfaces=XXXXXXXX]
+
+  VBoxManage usbfilter modify <индекс,0-N> <--target= <uuid | имя-ВМ | global> > [--name=строка] [--action=ignore | hold] [--active=yes | no]
+      [--vendorid=XXXX| ""] [--productid=XXXX| ""] [--revision=IIFF| ""] [--manufacturer=строка| ""] [--product=строка| ""] [--remote=yes | no]
+      [--serialnumber=строка| ""] [--maskedinterfaces=XXXXXXXX]
+
+  VBoxManage usbfilter remove <индекс,0-N> <--target= <uuid | имя-ВМ | global> >
+
+
+  VBoxManage guestproperty get <uuid | имя-ВМ> <имя-свойства> [--verbose]
+
+  VBoxManage guestproperty enumerate <uuid | имя-ВМ> [--patterns=шаблоны]
+
+  VBoxManage guestproperty set <uuid | имя-ВМ> <имя-свойства> [значение-свойства [--flags=флаги] ]
+
+  VBoxManage guestproperty unset <uuid | имя-ВМ> <имя-свойства>
+
+  VBoxManage guestproperty wait <uuid | имя-ВМ> <шаблоны> [--timeout=миллисекунды] [--fail-on-timeout]
+
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> run [--domain=имя-домена] [--dos2unix] [--exe=имя-файла] [--ignore-orphaned-processes] [--no-wait-stderr |
+      --wait-stderr] [--no-wait-stdout | --wait-stdout] [--passwordfile=файл-с-паролем | --password=пароль] [--profile]
+      [--putenv=имя-переменной=[значение]] [--quiet] [--timeout=миллисекунды] [--unix2dos] [--unquoted-args]
+      [--username=имя-пользователя] [--verbose] <--программа/аргумент0 [аргумент...] >
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> start [--domain=имя-домена] [--exe=имя-файла] [--ignore-orphaned-processes]
+      [--passwordfile=файл-с-паролем | --password=пароль] [--profile] [--putenv=имя-переменной=[значение]] [--quiet]
+      [--timeout=миллисекунды] [--unquoted-args] [--username=имя-пользователя] [--verbose] <--программа/аргумент0
+      [аргумент...] >
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> copyfrom [--domain=имя-домена] [--follow] [--passwordfile=файл-с-паролем | --password=пароль]
+      [--quiet] [--no-replace] [--recursive] [--target-directory=хост-директория-назначения] [--update]
+      [--username=имя-пользователя] [--verbose] <гостевой-источник0> гостевой-источник1[...]
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> copyto [--domain=имя-домена] [--follow] [--passwordfile=файл-с-паролем | --password=пароль]
+      [--quiet] [--no-replace] [--recursive] [--target-directory=гостевая-директория-назначения] [--update]
+      [--username=имя-пользователя] [--verbose] <хост-источник0> хост-источник1[...]
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> mkdir [--domain=имя-домена] [--mode=режим] [--parents] [--passwordfile=файл-с-паролем |
+      --password=пароль] [--quiet] [--username=имя-пользователя] [--verbose] <гостевая-директория...>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> rmdir [--domain=имя-домена] [--passwordfile=файл-с-паролем | --password=пароль] [--quiet]
+      [--recursive] [--username=имя-пользователя] [--verbose] <гостевая-директория...>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> rm [--domain=имя-домена] [--force] [--passwordfile=файл-с-паролем | --password=пароль] [--quiet]
+      [--username=имя-пользователя] [--verbose] <гостевая-директория...>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> mv [--domain=имя-домена] [--passwordfile=файл-с-паролем | --password=пароль] [--quiet]
+      [--username=имя-пользователя] [--verbose] <источник...> <директория-назначения>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> mktemp [--domain=имя-домена] [--mode=режим] [--passwordfile=файл-с-паролем |
+      --password=пароль] [--quiet] [--secure] [--tmpdir=имя-директории] [--username=имя-пользователя] [--verbose] <имя-шаблона>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> stat [--domain=имя-домена] [--passwordfile=файл-с-паролем | --password=пароль] [--quiet]
+      [--username=имя-пользователя] [--verbose] <имя-файла>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> list <all | files | processes | sessions> [--quiet] [--verbose]
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> closeprocess [--session-id=ID | --session-name=имя-или-шаблон] [--quiet] [--verbose] <PID...>
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> closesession [--all | --session-id=ID | --session-name=имя-или-шаблон] [--quiet] [--verbose]
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> updatega [--quiet] [--verbose] [--source=дополнения_гостевой_ос.ISO] [--wait-start] [--
+      [аргумент...] ]
+
+  VBoxManage guestcontrol <uuid | имя-ВМ> watch [--quiet] [--verbose]
+
+
+  VBoxManage metrics collect [--detach] [--list] [--period=секунды] [--samples=количество] [* | host | имя-ВМ список-метрик]
+
+  VBoxManage metrics disable [--list] [* | host | имя-ВМ список-метрик]
+
+  VBoxManage metrics enable [--list] [* | host | имя-ВМ список-метрик]
+
+  VBoxManage metrics list [* | host | имя-ВМ список-метрик]
+
+  VBoxManage metrics query [* | host | имя-ВМ список-метрик]
+
+  VBoxManage metrics setup [--list] [--periodсекунды] [--samplesколичество] [* | host | имя-ВМ список-метрик]
+
+
+  VBoxManage natnetwork add [--disable | --enable] <--netname=имя> <--network=сеть> [--dhcp=on|off] [--ipv6=on|off] [--loopback-4=правило]
+      [--loopback-6=правило] [--port-forward-4=правило] [--port-forward-6=правило]
+
+  VBoxManage natnetwork list [шаблон-фильтра]
+
+  VBoxManage natnetwork modify [--dhcp=on|off] [--disable | --enable] <--netname=имя> <--network=сеть> [--ipv6=on|off] [--loopback-4=правило]
+      [--loopback-6=правило] [--port-forward-4=правило] [--port-forward-6=правило]
+
+  VBoxManage natnetwork remove <--netname=имя>
+
+  VBoxManage natnetwork start <--netname=имя>
+
+  VBoxManage natnetwork stop <--netname=имя>
+
+
+  VBoxManage hostonlyif ipconfig <имя-интерфейса> [--dhcp | --ip=IPv4-адрес --netmask=IPv4-маска | --ipv6=IPv6-адрес
+      --netmasklengthv6=длина]
+
+  VBoxManage hostonlyif create
+
+  VBoxManage hostonlyif remove <имя-интерфейса>
+
+
+  VBoxManage usbdevsource add <имя-источника> <--backend=бэкенд> <--address=адрес>
+
+  VBoxManage usbdevsource remove <имя-источника>
