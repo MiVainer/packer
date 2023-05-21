@@ -1,8 +1,8 @@
 {
-    "product_images_project_id": "b1gn4n3nm96pef462g4l",
+    "product_images_project_id": "b1gppd4nkf0vv6ldlbod",
     "zone": "ru-central1-a",
     "product_name": "debian11-withnginx-user1-v1",
     "source_image_family": "debian-11",
-    "cloud_subnet_id": "e9b6vj7jpm1msqj6hqql",
+    "cloud_subnet_id": "e9b1fcf5n6i8prhs17mm",
     "image_description": "My image for user1, with nginx on board."
   }
